@@ -1,0 +1,20 @@
+{% extends "group_works/base.html" %}
+
+{% block page_header %}
+	<h1>Projects</h1>
+{% endblock page_header %}
+
+{% block content %}
+	<h4><a href="{%url 'group_works:new_project' %}">Add a new project</a></h4>
+	
+	<ul>
+		{% for project in projects %}
+			<li><h5>
+				<a href="{%url 'group_works:project' project.id %}">{{ project }}</a>
+				<p>{{project.due_date|date:'M d, Y' }}</p>
+			</h5></li>
+		{% empty %}
+			<li><h3>No projects have been added yet.</h3></li>
+		{% endfor %}
+	</ul>
+{% endblock content %}

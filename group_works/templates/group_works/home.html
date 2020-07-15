@@ -1,0 +1,14 @@
+{% extends "group_works/base.html" %}
+
+{% block page_header %}
+	<div class="jumbotron">
+		<h1 class="display-3">Streamline your projects.</h1>
+		
+		<p class="lead">Create projects, add collaborators, and
+			assign tasks. Keep your team organized and focused with our 
+			simple group management system.</p>
+		
+		<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+				role="button">Register &raquo;</a>
+	</div>
+{% endblock page_header %}

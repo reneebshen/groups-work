@@ -1,0 +1,35 @@
+{% extends "group_works/base.html" %}
+
+{% block page_header %}
+	<h3>{{project}}</h3>
+	<h5>{{project.description}}</h5>
+	<h6>
+		<a href="{% url 'group_works:edit_project' project.id %}">Edit project</a>
+	</h6>
+{% endblock page_header %}
+
+{% block content %}
+	
+	<h4>Tasks:</h4>
+	<h6>
+		<a href="{%url 'group_works:new_task' project.id %}">Add a new task</a>
+	</h6>
+	
+	<ul>
+		{% for task in tasks %}
+			<div class="card mb-3">
+				<h6 class="card-header">
+					{{task.due_date|date:'M d, Y' }}
+				</h6>
+				<div class="card-body">
+					<a href="{% url 'group_works:task' task.id %}">
+						<p>{{task.title}}</p>
+					</a>
+				</div>
+			</div>
+		{% empty %}
+			<p>There are no tasks for this project yet.</p>
+		{% endfor %}
+	</ul>
+	
+{% endblock content %}
