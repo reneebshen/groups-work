@@ -29,10 +29,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps
     'group_works',
-    'users',
+    'users.apps.UsersConfig',
 
     # Third party apps
     'bootstrap4',
+    'crispy_forms',
 
     # Default django apps
     'django.contrib.admin',
@@ -130,3 +131,6 @@ if os.environ.get('DEBUG') == 'TRUE':
     DEBUG = True
 elif os.environ.get('DEBUG') == 'FALSE':
     DEBUG = False
+
+# Crispy settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

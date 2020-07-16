@@ -1,5 +1,6 @@
 {% extends "group_works/base.html" %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block page_header %}
 	<h2>Register</h2>
@@ -9,12 +10,17 @@
 	
 	<form method="post" action="{% url 'users:register' %}" class="form">
 		{% csrf_token %}
-		{% bootstrap_form form %}
+		{{ form|crispy }}
 		{% buttons %}
 			<button name="submit" class="btn btn-primary">Register</button>
 		{% endbuttons %}
 		
 		<input type="hidden" name="next" value="{% url 'group_works:home' %}" />
 	</form>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			Already Have An Account? <a class="ml-2" href="{% url 'users:login' %}">Sign In</a>
+		</small>
+	</div>
 	
 {% endblock content %}
