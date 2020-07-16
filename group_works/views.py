@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
@@ -24,7 +24,7 @@ def projects(request):
 @login_required
 def project(request, project_id):
     """Show all tasks for requested project."""
-    project = Project.objects.get(id=project_id)
+    project = get_object_or_404(Project, id=project_id)
     # Make sure topic belongs to current user
     __check_project_owner__(project.owner, request.user)
 
@@ -36,7 +36,7 @@ def project(request, project_id):
 @login_required
 def task(request, task_id):
     """Show info for a task."""
-    task = Task.objects.get(id=task_id)
+    task = get_object_or_404(Task, id=task_id)
     project = task.project
     __check_project_owner__(project.owner, request.user)
 
