@@ -3,9 +3,9 @@
 
 {% block page_header %}
 	<h2>
-		<a href="{% url 'group_works:project' project.id %}">{{project}}</a>
+		<a class="page-title" href="{% url 'group_works:project' project.id %}">{{project}}</a>
 	</h2>
-	<h3>Add a new task:</h3>
+	<h3 class="secondary-header">Add a new task:</h3>
 {% endblock page_header %}
 
 {% block content %}

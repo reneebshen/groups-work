@@ -1,0 +1,106 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+.hidden-sidebar {
+	display: hidden;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  color: #444444;
+}
+
+.page-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.secondary-title {
+	color: #428bca
+}
+
+.content-header {
+	color: #204051;
+}
+
+.content-info {
+	color: #3B6978;
+}
+
+.page-content {
+	color: #000000;
+  white-space: pre-line;
+}
+
+.content-description {
+	color: #000000;
+}
+
+.creator-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.page-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.page-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.page-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+	border-radius: 50%;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}

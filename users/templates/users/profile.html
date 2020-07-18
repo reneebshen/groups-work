@@ -1,0 +1,27 @@
+{% extends "group_works/base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+				<img src="{{ user.profile.image.url }}" class="account-img">
+				<div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <form method="post" action="{% url 'users:profile' %}" class="form" enctype="multipart/form-data">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					<legend class="border-bottom mb-4">Profile Info</legend>
+					{{ user_form|crispy }}
+					{{ prof_form|crispy }}
+				</fieldset>
+				{% buttons %}
+					<button name="submit" class="btn btn-primary">Update</button>
+				{% endbuttons %}
+				<input type="hidden" name="next" value="{% url 'group_works:home' %}" />
+			</form>
+    </div>
+{% endblock content %}

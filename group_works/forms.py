@@ -29,3 +29,17 @@ class TaskForm(forms.ModelForm):
         labels = {'title': 'Title', 'due_date': 'Due Date',
                   'description': 'Describe the task:'}
         widgets = {'description': forms.Textarea(attrs={'cols': 80})}
+
+
+class ProjectDeleteForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = []
+
+
+class TaskDeleteForm(forms.ModelForm):
+
+    class Meta:
+        model = Task
+        fields = []

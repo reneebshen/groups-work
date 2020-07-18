@@ -1,19 +1,22 @@
 {% extends "group_works/base.html" %}
 
 {% block page_header %}
-	<h3>
-		<a href="{% url 'group_works:project' project.id %}">{{project}}</a>
-	</h3>
-	<h5>{{ task }}</h5>
-	<h6>Due: {{task.due_date|date:'M d, Y' }}</h6>
+	<h2>
+		<a class="page-title" href="{% url 'group_works:project' project.id %}">{{project}}</a>
+	</h2>
+	<h3 class="secondary-title">{{ task }}</h3>
+	<h6 class="content-info">Due: {{task.due_date|date:'M d, Y' }}</h6>
 {% endblock page_header %}
 
 {% block content %}
 
-	<h5>Description:</h5>
-	<h6>{{task.description|linebreaks}}</h6>
-	<h6>
-		<a href="{% url 'group_works:edit_task' task.id %}">Edit task</a>
-	</h6>
+	<h4 class="content-header">Description:</h4>
+	<p class="page-content">{{task.description|linebreaks}}</p>
+	<p>
+		<a class="content-info" href="{% url 'group_works:edit_task' task.id %}">Edit task</a>
+	</p>
+		<p>
+		<a class="content-info" href="{% url 'group_works:delete_task' task.id %}">Delete task</a>
+	</p>
 	
 {% endblock content %}

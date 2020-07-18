@@ -123,14 +123,18 @@ STATIC_URL = '/static/'
 # My settings
 LOGIN_URL = 'users:login'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Heroku settings
 import django_heroku
 django_heroku.settings(locals())
 
-if os.environ.get('DEBUG') == 'TRUE':
-    DEBUG = True
-elif os.environ.get('DEBUG') == 'FALSE':
-    DEBUG = False
+# if os.environ.get('DEBUG') == 'TRUE':
+#     DEBUG = True
+# elif os.environ.get('DEBUG') == 'FALSE':
+#     DEBUG = False
+DEBUG = True
 
 # Crispy settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

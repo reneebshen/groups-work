@@ -1,20 +1,31 @@
 {% extends "group_works/base.html" %}
 
 {% block page_header %}
-	<h1>Projects</h1>
+	<h2 class="page-title">Projects</h2>
+	<h5>
+		<a class="content-info" href="{%url 'group_works:new_project' %}">Add a new project</a>
+	</h5>
 {% endblock page_header %}
 
 {% block content %}
-	<h4><a href="{%url 'group_works:new_project' %}">Add a new project</a></h4>
-	
-	<ul>
 		{% for project in projects %}
-			<li><h5>
-				<a href="{%url 'group_works:project' project.id %}">{{ project }}</a>
-				<p>{{project.due_date|date:'M d, Y' }}</p>
-			</h5></li>
+			<article class="media content-section">
+				<img class="rounded-circle creator-img" src="{{ project.owner.profile.image.url }}">
+				<div class="media-body">
+					<div class="page-metadata">
+						<p class="text-secondary" >{{project.owner}}<br>
+							{{project.due_date|date:'M d, Y' }}</p>
+					</div>
+					<p>
+						<a class="page-content" href="{%url 'group_works:project' project.id %}">{{ project }}</a>
+					</p>
+				</div>
+			</article>
 		{% empty %}
-			<li><h3>No projects have been added yet.</h3></li>
+			<article class="media content-section">
+				<p>
+					<a class="page-content">You don't have any projects.</a>
+				</p>
+			</article>
 		{% endfor %}
-	</ul>
 {% endblock content %}

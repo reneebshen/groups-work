@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.contrib import messages
 
 from .models import Project, Task
-from .forms import ProjectForm, TaskForm
+from .forms import ProjectForm, TaskForm, ProjectDeleteForm, TaskDeleteForm
 
 # Create your views here.
 
@@ -116,6 +117,42 @@ def edit_task(request, task_id):
 
     context = {'task': task, 'project': project, 'form': form}
     return render(request, 'group_works/edit_task.html', context)
+
+
+@login_required
+def delete_project(request, project_id):
+    project = Project.objects.get(id=project_id)
+    __check_project_owner__(project.owner, request.user)
+
+    if request.method != 'POST':
+        form = ProjectDeleteForm(instance=project)
+    else:
+        form = ProjectDeleteForm(instance=project, data=request.POST)
+        if form.is_valid():
+            project.delete()
+            return redirect('group_works:projects')
+
+    context = {'project': project, 'form': form}
+    return render(request, 'group_works/delete_project.html', context)
+
+
+@login_required
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    project = task.project
+    __check_project_owner__(project.owner, request.user)
+
+    if request.method != 'POST':
+        form = TaskDeleteForm(instance=task)
+    else:
+        form = TaskDeleteForm(instance=task, data=request.POST)
+        if form.is_valid():
+            task.delete()
+            print('deleted')
+            return redirect('group_works:project', project_id=project.id)
+
+    context = {'task': task, 'project': project, 'form': form}
+    return render(request, 'group_works/delete_task.html', context)
 
 
 def __check_project_owner__(owner, user):
