@@ -1,0 +1,24 @@
+{% extends "group_works/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+	<h2>
+		<a class="page-title" href="#">{{ project.title }}</a>
+	</h2>
+	
+	    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Task</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Add Task</button>
+            </div>
+        </form>
+    </div>
+	
+{% endblock content %}
+<!--{% url 'group_works:task-list' project.id %}-->

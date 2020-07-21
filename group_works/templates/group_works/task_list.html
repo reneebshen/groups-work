@@ -1,0 +1,42 @@
+{% extends "group_works/base.html" %}
+
+
+{% block content %}
+
+	<h2 class="page-title">{{ project.title }}</h2>
+	<h5 class="content-description">{{ project.description }}</h5>
+	<a class="content-info" href="{%url 'group_works:project-update' project.pk %}">Edit Project</a>
+
+	
+	<h4 class="content-header">Tasks:</h4>
+
+	<a class="content-info" href="{%url 'group_works:task-create' project.pk %}">Add Task</a>
+
+
+	<ul>
+		{% for task in tasks %}
+		<article class="media content-section">
+			<div class="media-body">
+				<p class="text-secondary">
+					{{task.due_date|date:'M d, Y' }}
+				</p>
+				<p>
+					<a class="page-content" href="{% url 'group_works:task-detail' task.pk %}">
+						{{ task.title }}
+					</a>
+				<p>
+			</div>
+		</article>
+		{% empty %}
+		<article class="media content-section">
+			<div class="media-body">
+				<h6 class="page-content">There are no tasks for this project yet.</h6>
+			</div>
+		</article>
+		{% endfor %}
+
+	</ul>
+
+	
+{% endblock content %}
+

@@ -23,7 +23,7 @@ def register(request):
             return redirect('group_works:home')
 
     context = {'form': form}
-    return render(request, 'registration/register.html', context)
+    return render(request, 'users/register.html', context)
 
 
 @login_required

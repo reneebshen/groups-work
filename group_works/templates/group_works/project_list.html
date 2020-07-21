@@ -1,13 +1,11 @@
 {% extends "group_works/base.html" %}
 
-{% block page_header %}
+{% block content %}
 	<h2 class="page-title">Projects</h2>
 	<h5>
-		<a class="content-info" href="{%url 'group_works:new_project' %}">Add a new project</a>
+		<a class="content-info" href="{%url 'group_works:project-create' %}">Add a new project</a>
 	</h5>
-{% endblock page_header %}
 
-{% block content %}
 		{% for project in projects %}
 			<article class="media content-section">
 				<img class="rounded-circle creator-img" src="{{ project.owner.profile.image.url }}">
@@ -17,7 +15,7 @@
 							{{project.due_date|date:'M d, Y' }}</p>
 					</div>
 					<p>
-						<a class="page-content" href="{%url 'group_works:project' project.id %}">{{ project }}</a>
+						<a class="page-content" href="{%url 'group_works:task-list' project.pk %}">{{ project.title }}</a>
 					</p>
 				</div>
 			</article>

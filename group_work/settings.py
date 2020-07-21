@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # My apps
-    'group_works',
+    'group_works.apps.GroupWorksConfig',
     'users.apps.UsersConfig',
 
     # Third party apps

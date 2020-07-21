@@ -8,19 +8,38 @@ Created on Jul 8, 2020
 
 from django.urls import path
 
+from .views import (
+    ProjectListView,
+#     TaskListView,
+    TaskDetailView,
+    ProjectCreateView,
+    ProjectUpdateView,
+    ProjectDeleteView,
+    TaskCreateView,
+    TaskEditView,
+    TaskDeleteView,
+    )
 from . import views
 
 app_name = 'group_works'
 urlpatterns = [
     path('', views.home, name='home'),
-    path('projects/', views.projects, name='projects'),
-    path('new_project/', views.new_project, name='new_project'),
-    path('new_task/<int:project_id>/', views.new_task, name='new_task'),
-    path('edit_project/<int:project_id>/', views.edit_project,
-         name='edit_project'),
-    path('edit_task/<int:task_id>/', views.edit_task, name='edit_task'),
-    path('projects/tasks/<int:task_id>/', views.task, name='task'),
-    path('projects/<int:project_id>/', views.project, name='project'),
-    path('delete/project/<int:project_id>/', views.delete_project, name='delete_project'),
-    path('delete/task/<int:task_id>/', views.delete_task, name='delete_task'),
+    path('projects/', ProjectListView.as_view(), name='project-list'),
+    path('projects/new', ProjectCreateView.as_view(), name='project-create'),
+    path('projects/<int:project_pk>/',
+        views.task_list, name='task-list'),
+    path('projects/<int:project_pk>/update',
+        ProjectUpdateView.as_view(), name='project-update'),
+    path('projects/<int:project_pk>/task/new',
+         TaskCreateView.as_view(), name='task-create'),
+    path('task/<int:task_pk>/',
+         TaskDetailView.as_view(), name='task-detail'),
+    path('task/<int:task_pk>/update',
+         TaskEditView.as_view(), name='task-update'),
+    path('projects/<int:project_pk>/delete/',
+         ProjectDeleteView.as_view(), name='project-delete'),
+    path('task/<int:task_pk>/delete/',
+         TaskDeleteView.as_view(), name='task-delete'),
+    path('about/', views.about, name='about')
+
     ]

@@ -1,0 +1,16 @@
+{% extends "group_works/base.html" %}
+
+{% block content %}
+	<h2>
+		<a class="page-title" href="{% url 'group_works:task-list' task.project.pk %}">{{ task.project.title }}</a>
+	</h2>
+	<h3 class="secondary-title">{{ task.title }}</h3>
+	<a class="content-info" href="{%url 'group_works:task-update' task.pk %}">Edit Task</a>
+
+	<h6 class="content-info">Due: {{task.due_date|date:'M d, Y' }}</h6>
+
+	<h4 class="content-header">Description:</h4>
+	<p class="page-content">{{task.description|linebreaks}}</p>
+
+	
+{% endblock content %}

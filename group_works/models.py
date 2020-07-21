@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.urls import reverse
 
 # Create your models here.
 
@@ -17,6 +19,9 @@ class Project(models.Model):
         """Return a string representation of the model."""
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('group_works:task-list', kwargs={'project_pk':self.pk})
+
 
 class Task(models.Model):
     """A task to be completed for a project."""
@@ -25,8 +30,13 @@ class Task(models.Model):
     last_edit = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()
     description = models.TextField(default='No Description.')
+
     # collaborators =
 
     def __str__(self):
         """Return a string representation of the model."""
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('group_works:task-detail', kwargs={'task_pk':self.pk})
+
