@@ -40,7 +40,7 @@ def profile(request):
             prof_form.save()
 
             messages.success(request, f'Your profile has been updated!')
-            return redirect('users:profile')
+            return redirect('profile')
 
     context = {
         'user_form' : user_form,

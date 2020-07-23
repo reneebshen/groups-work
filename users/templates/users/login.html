@@ -1,20 +1,24 @@
 {% extends "group_works/base.html" %}
-{% load bootstrap4 %}
-
-{% block page_header %}
-	<h2>Log in to your account.</h2>
-{% endblock page_header %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-	<form method="post" action="{% url 'users:login' %}" class="form">
-		{% csrf_token %}
-		{% bootstrap_form form %}
-		{% buttons %}
-			<button name="submit" class="btn btn-primary">Log in</button>
-		{% endbuttons %}
-		
-		<input type="hidden" name="next"
-			value="{% url 'group_works:home' %}" />
-		</form>
-		
-	{% endblock content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Login</button>
+                <small class="text-muted ml-2">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </small>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

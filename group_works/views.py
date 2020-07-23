@@ -3,7 +3,7 @@ from django.http import Http404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
     DetailView,
@@ -32,36 +32,22 @@ class ProjectListView(ListView):
         return Project.objects.filter(owner=self.request.user).order_by('due_date')
 
 
-@login_required
-def task_list(request, project_pk):
-    """Show all tasks for requested project."""
-    project = get_object_or_404(Project, id=project_pk)
-    # Make sure topic belongs to current user
-    __check_project_owner__(project.owner, request.user)
+class TaskListView(ListView):
+    model = Task
+    template_name = 'group_works/task-list.html'
+    context_object_name = 'tasks'
+    ordering = ['due_date']
+    paginate_by = 5
 
-    tasks = project.task_set.order_by('due_date')
-    context = {'project': project, 'tasks': tasks}
-    return render(request, 'group_works/task_list.html', context)
+    def get_queryset(self):
+        proj = get_object_or_404(Project, pk=self.kwargs['project_pk'])
+        return Task.objects.filter(project=proj).order_by('due_date')
 
-# class TaskListView(ListView):
-#     """Equivalent to task_list, but I couldn't figure out
-#     how to display project name from queryset of tasks
-#     on the template."""
-#     model = Task
-#     template_name = 'group_works/task-list.html'
-#     context_object_name = 'tasks'
-#     ordering = ['due_date']
-#     paginate_by = 5
-#
-#     def get_queryset(self):
-#         proj = get_object_or_404(Project, pk=self.kwargs['project_pk'])
-#         return Task.objects.filter(project=proj).order_by('due_date')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(TaskListView, self).get_context_data(**kwargs)
-#         context['project'] = Project.objects.filter(
-#             pk=self.kwargs['project_pk']).get()
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.filter(
+            pk=self.kwargs['project_pk']).get()
+        return context
 
 
 class TaskDetailView(DetailView):
@@ -118,6 +104,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     fields = ['title', 'due_date', 'description']
+    pk_url_kwarg = 'task_pk'
 
     def form_valid(self, form):
         form.instance.project.owner = self.request.user
@@ -144,12 +131,11 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 def about(request):
     return render(request, 'group_works/about.html', {'title': 'About'})
 
-
-def __check_project_owner__(owner, user):
-    """Check if the user has access to a page.
-    Raise a 404 error if not."""
-    if owner != user:
-        raise Http404
+# def __check_project_owner__(owner, user):
+#     """Check if the user has access to a page.
+#     Raise a 404 error if not."""
+#     if owner != user:
+#         raise Http404
 
 # @login_required
 # def projects(request):
