@@ -12,6 +12,7 @@ class Project(models.Model):
     last_edit = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()  # use a DateInput widget
     description = models.TextField(default='No Description.')
+   # complete = models.BooleanField(default=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     # collaborators =
 
@@ -29,6 +30,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     last_edit = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()
+#     complete = models.BooleanField(default=False)
     description = models.TextField(default='No Description.')
 
     # collaborators =

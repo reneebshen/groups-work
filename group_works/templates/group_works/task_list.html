@@ -6,6 +6,7 @@
 	<h2 class="page-title">{{ project.title }}</h2>
 	<h5 class="content-description">{{ project.description }}</h5>
 	<a class="content-info" href="{%url 'group_works:project-update' project.pk %}">Edit Project</a>
+	<a class="content-info" href="{%url 'group_works:project-delete' project.pk %}">Delete Project</a>
 
 	
 	<h4 class="content-header">Tasks:</h4>

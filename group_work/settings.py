@@ -121,7 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # My settings
-LOGIN_URL = 'login'
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = '/projects/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

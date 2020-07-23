@@ -6,6 +6,7 @@
 	</h2>
 	<h3 class="secondary-title">{{ task.title }}</h3>
 	<a class="content-info" href="{%url 'group_works:task-update' task.pk %}">Edit Task</a>
+	<a class="content-info" href="{%url 'group_works:task-delete' task.pk %}">Delete Task</a>
 
 	<h6 class="content-info">Due: {{task.due_date|date:'M d, Y' }}</h6>
 

@@ -10,9 +10,9 @@
 				{% if user.is_authenticated %}
 					<h4>Welcome, {{ user.username }}.</h4>
 				{% else %}
-					<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+					<a class="btn btn-lg btn-primary" href="{% url 'register' %}"
 							role="button">Register &raquo;</a>
-					<p class="lead">If you would like to explore Groups Work without
+					<p class="content-info"><br>If you would like to explore Groups Work without
 					creating an account, please sign in with the following:<br>
 					username: testuser<br>
 					password: test4321<br>

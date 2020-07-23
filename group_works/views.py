@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 # from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -80,15 +81,20 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
-    success_url = '/'
+#     success_url = 'project-list'
+    pk_url_kwarg = 'project_pk'
 
     def test_func(self):
         project = self.get_object()
         if self.request.user == project.owner:
             return True
         return False
+
+    def get_success_url(self):
+#         project = self.object.project
+        return reverse_lazy('group_works:project-list')
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -117,15 +123,23 @@ class TaskEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
-    success_url = '/'
+    pk_url_kwarg = 'task_pk'
 
     def test_func(self):
         task = self.get_object()
         if self.request.user == task.project.owner:
             return True
         return False
+
+    def get_success_url(self):
+        project = self.object.project
+        return reverse_lazy('group_works:task-list', kwargs={'project_pk': project.pk})
+
+# class ProjectCompleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = Project
+#
 
 
 def about(request):
