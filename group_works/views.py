@@ -107,7 +107,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     fields = ['title', 'due_date', 'description']
     pk_url_kwarg = 'task_pk'
@@ -137,9 +137,39 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         project = self.object.project
         return reverse_lazy('group_works:task-list', kwargs={'project_pk': project.pk})
 
-# class ProjectCompleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Project
-#
+
+class ProjectCompleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Project
+    fields = []
+    pk_url_kwarg = 'project_pk'
+    template_name_suffix = '_complete'
+
+    def form_valid(self, form):
+        form.instance.complete = not form.instance.complete
+        return super().form_valid(form)
+
+    def test_func(self):
+        project = self.get_object()
+        if self.request.user == project.owner:
+            return True
+        return False
+
+
+class TaskCompleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Task
+    fields = []
+    pk_url_kwarg = 'task_pk'
+    template_name_suffix = '_complete'
+
+    def form_valid(self, form):
+        form.instance.complete = not form.instance.complete
+        return super().form_valid(form)
+
+    def test_func(self):
+        task = self.get_object()
+        if self.request.user == task.project.owner:
+            return True
+        return False
 
 
 def about(request):

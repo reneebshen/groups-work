@@ -43,3 +43,17 @@ class TaskDeleteForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = []
+
+
+class ProjectCompleteForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = []
+
+
+class TaskCompleteForm(forms.ModelForm):
+
+    class Meta:
+        model = Task
+        fields = []

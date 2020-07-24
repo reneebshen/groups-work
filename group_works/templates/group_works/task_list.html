@@ -1,14 +1,42 @@
 {% extends "group_works/base.html" %}
+{% load bootstrap4 %}
 
 
 {% block content %}
 
-	<h2 class="page-title">{{ project.title }}</h2>
-	<h5 class="content-description">{{ project.description }}</h5>
-	<a class="content-info" href="{%url 'group_works:project-update' project.pk %}">Edit Project</a>
-	<a class="content-info" href="{%url 'group_works:project-delete' project.pk %}">Delete Project</a>
-
-	
+	<div>
+		<h2 class="page-title" style="display: inline-block">{{ project.title }}</h2>
+		{% if project.complete %}
+				<span class="badge badge-success float-right">Complete</span>
+		{% else %}
+				<span class="vertical-center badge badge-info float-right">Due: {{ project.due_date|date:'M d, Y' }}</span>
+		{% endif %}
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				<a class="btn btn-warning" href="{%url 'group_works:project-update' project.pk %}">Edit Project</a>
+			</div>
+			<div class="col-sm">
+				<a class="btn btn-danger" href="{%url 'group_works:project-delete' project.pk %}">Delete Project</a>
+			</div>
+			{% if project.complete %}
+			<div class="col-sm">
+				<a class="btn btn-primary" href="{%url 'group_works:project-complete' project.pk %}">Mark Incomplete</a>
+			</div>
+			{% else %}
+			<div class="col-sm">
+				<a class="btn btn-success" href="{%url 'group_works:project-complete' project.pk %}">Mark Complete</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<br>
+	<article class="media content-section">
+		<h5 class="content-description">{{ project.description }}</h5>
+	</article>	
+	<hr>
 	<h4 class="content-header">Tasks:</h4>
 
 	<a class="content-info" href="{%url 'group_works:task-create' project.pk %}">Add Task</a>
